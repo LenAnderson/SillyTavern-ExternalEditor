@@ -32,6 +32,8 @@ const addBtn = ()=>{
         };
         ta.addEventListener('focus', ()=>{
             console.log('[STEE]', 'FOCUS', ta);
+            const layer = ta.closest('dialog, body');
+            const layerRect = layer.getBoundingClientRect();
             const rect = ta.getBoundingClientRect();
             btn = document.createElement('div'); {
                 btn.classList.add('stee--trigger');
@@ -39,8 +41,8 @@ const addBtn = ()=>{
                 btn.classList.add('fa-solid');
                 btn.classList.add('fa-square-up-right');
                 btn.title = 'Edit in external editor\nClick again to stop editing in external editor';
-                btn.style.top = `${rect.top + 3}px`;
-                btn.style.right = `calc(100vw - ${rect.right - 15}px)`;
+                btn.style.top = `${rect.top - layerRect.top + 3}px`;
+                btn.style.right = `calc(100vw - ${rect.right + layerRect.left - 15}px)`;
                 btn.style.position = 'fixed';
                 btn.style.zIndex = '30000';
                 if (isWatching) btn.style.color = 'red';
@@ -132,7 +134,7 @@ const addBtn = ()=>{
                     }
                     btn.style.color = '';
                 });
-                ta.closest('dialog, body').append(btn);
+                layer.append(btn);
             }
         });
         ta.addEventListener('blur', ()=>{
