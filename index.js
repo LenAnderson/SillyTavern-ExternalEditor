@@ -55,7 +55,11 @@ const addBtn = ()=>{
                     ta.style.outline = '5px solid red';
                     btn.style.color = 'red';
                     const name = ta.id || `${ta.closest('[id]')?.id || ''}-${(ta.name || 'textarea')}`;
-                    const path = `~/user/STEE/${uuidv4()}.${name.replace(/[^a-z0-9_. ]+/gi, '-')}.txt`;
+                    let ext = 'md';
+                    if (ta.id == 'qr--modal-message') {
+                        ext = 'stscript';
+                    }
+                    const path = `~/user/STEE/${uuidv4()}.${name.replace(/[^a-z0-9_. ]+/gi, '-')}.${ext}`;
 
                     // save snippet to file
                     const blob = new Blob([ta.value], { type:'text' });
